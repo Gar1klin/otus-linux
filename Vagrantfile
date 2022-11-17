@@ -62,13 +62,8 @@ Vagrant.configure("2") do |config|
                          vb.customize ['storageattach', :id,  '--storagectl', 'SATA', '--port', dconf[:port], '--device', 0, '--type', 'hdd', '--medium', dconf[:dfile]]
                      end
                   end
-          end
- 	  box.vm.provision "shell", inline: <<-SHELL
-	      mkdir -p ~root/.ssh
-              cp ~vagrant/.ssh/auth* ~root/.ssh
-	      yum install -y mdadm smartmontools hdparm gdisk
-  	  SHELL
-
+          end 
+	 config.vm.provision "shell", path: "raid10.sh"
       end
   end
 end
